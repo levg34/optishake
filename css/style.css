@@ -1,0 +1,14 @@
+.bureau  {
+	background: gray;
+	width: 50vw;
+    height: 50vw;
+}
+
+body {
+  margin: 0;
+}
+
+rect {
+  stroke: #fff;
+  stroke-width: .1px;
+}
