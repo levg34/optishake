@@ -40,5 +40,4 @@ function addToList(d) {
 function saveList() {
 	list.sort()
 	localStorage.list = JSON.stringify(list)
-	// console.log(JSON.parse(localStorage.list))
 }
