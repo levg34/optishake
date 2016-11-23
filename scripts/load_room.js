@@ -1,9 +1,10 @@
 var w = 960,
-h = 500,
-z = 20,
-x = w / z,
-y = h / z,
-list = [];
+	h = 500,
+	z = 20,
+	x = w / z,
+	y = h / z,
+	list = [],
+	shakel = [];
 
 if (localStorage.list!=undefined) {
 	list = JSON.parse(localStorage.list)
@@ -26,25 +27,24 @@ if (localStorage.list!=undefined) {
 	}
 
 	function mouseover(d) {
-		d3.select(this).style('fill', 'green')
 		// the value 'd' is also d3.select(this).datum()
-		/*if (addToList(d)) {
-		d3.select(this).style('fill', 'black')
+		if (addToList(d)) {
+			d3.select(this).style('fill', 'green')
 		}
-		}
+	}
 
-		function addToList(d) {
-		var nexist = (list.indexOf(d)==-1)
+	function addToList(d) {
+		var nexist = (shakel.indexOf(d)==-1)
 		if (nexist) {
-		list.push(d)
+			shakel.push(d)
 		}
 		return nexist
-		}
+	}
 
-		function saveList() {
-		list.sort()
-		localStorage.list = JSON.stringify(list)
-		// console.log(JSON.parse(localStorage.list))*/
+	function saveList() {
+		shakel.sort()
+		localStorage.shakel = JSON.stringify(shakel)
+		// console.log(JSON.parse(localStorage.shakel))
 	}
 
 } else {
