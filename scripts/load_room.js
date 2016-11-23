@@ -3,19 +3,19 @@ var w = 960,
 	z = 20,
 	x = w / z,
 	y = h / z,
-	list = [];
+	list = JSON.parse(localStorage.list);
 
-var svg = d3.select('body').append('svg')
+var svg = d3.select('p').append('svg')
 	.attr('width', w)
 	.attr('height', h);
 
 svg.selectAll('rect')
-	.data(d3.range(x * y))
+	.data(list)
 	.enter().append('rect')
 	.attr('transform', translate)
 	.attr('width', z)
 	.attr('height', z)
-	.style('fill', 'gray')
+	.style('fill', 'black')
 	.on('click', mouseover);
 
 function translate(d) {
@@ -24,7 +24,7 @@ function translate(d) {
 
 function mouseover(d) {
 	// the value 'd' is also d3.select(this).datum()
-	if (addToList(d)) {
+	/*if (addToList(d)) {
 		d3.select(this).style('fill', 'black')
 	}
 }
@@ -40,5 +40,5 @@ function addToList(d) {
 function saveList() {
 	list.sort()
 	localStorage.list = JSON.stringify(list)
-	// console.log(JSON.parse(localStorage.list))
+	// console.log(JSON.parse(localStorage.list))*/
 }
