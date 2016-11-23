@@ -13,37 +13,20 @@ if (localStorage.list!=undefined) {
 		.attr('width', w)
 		.attr('height', h);
 		
-	if (localStorage.shakel==undefined) {
-		svg.selectAll('rect')
-			.data(list)
-			.enter().append('rect')
-			.attr('transform', translate)
-			.attr('width', z)
-			.attr('height', z)
-			.style('fill', 'black')
-			.on('click', mouseover);
-	} else {
-		shakel = JSON.parse(localStorage.shakel)
-		var list_except = arr_diff(list, shakel)
-		console.log(list_except)
+	svg.selectAll('rect')
+		.data(list)
+		.enter().append('rect')
+		.attr('transform', translate)
+		.attr('width', z)
+		.attr('height', z)
+		.style('fill', 'black')
+		.on('click', mouseover);
 		
-		svg.selectAll('rect')
-			.data(list_except)
-			.enter().append('rect')
-			.attr('transform', translate)
-			.attr('width', z)
-			.attr('height', z)
-			.style('fill', 'black')
-			.on('click', mouseover);
-			
-		svg.selectAll('rect')
-			.data(shakel)
-			.enter().append('rect')
-			.attr('transform', translate)
-			.attr('width', z)
-			.attr('height', z)
-			.style('fill', 'green')
-			.on('click', mouseover);
+	if (localStorage.shakel!=undefined) {
+		shakel = JSON.parse(localStorage.shakel)
+		/*d3.selectAll("svg")
+			.filter(this.datum()==244)
+			.style('fill', 'red');*/
 	}
 
 	function translate(d) {
@@ -72,11 +55,16 @@ if (localStorage.list!=undefined) {
 	function remFromList(d) {
 		var index = shakel.indexOf(d);
 		shakel.splice(index, 1);
+		saveList()
 	}
 
 	function saveList() {
-		shakel.sort()
 		localStorage.shakel = JSON.stringify(shakel)
+	}
+	
+	function clearRoom() {
+		shakel = []
+		delete localStorage.shakel
 	}
 
 } else {
