@@ -24,9 +24,9 @@ if (localStorage.list!=undefined) {
 		
 	if (localStorage.shakel!=undefined) {
 		shakel = JSON.parse(localStorage.shakel)
-		/*d3.selectAll("svg")
-			.filter(this.datum()==244)
-			.style('fill', 'red');*/
+		d3.selectAll("rect")
+			.filter(function(d, i) { return shakel.indexOf(d3.select(this).datum())>-1 })
+			.style('fill', 'green');
 	}
 
 	function translate(d) {
