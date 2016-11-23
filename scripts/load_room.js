@@ -12,15 +12,39 @@ if (localStorage.list!=undefined) {
 	var svg = d3.select('h1').append('svg')
 		.attr('width', w)
 		.attr('height', h);
-
-	svg.selectAll('rect')
-		.data(list)
-		.enter().append('rect')
-		.attr('transform', translate)
-		.attr('width', z)
-		.attr('height', z)
-		.style('fill', 'black')
-		.on('click', mouseover);
+		
+	if (localStorage.shakel==undefined) {
+		svg.selectAll('rect')
+			.data(list)
+			.enter().append('rect')
+			.attr('transform', translate)
+			.attr('width', z)
+			.attr('height', z)
+			.style('fill', 'black')
+			.on('click', mouseover);
+	} else {
+		shakel = JSON.parse(localStorage.shakel)
+		var list_except = arr_diff(list, shakel)
+		console.log(list_except)
+		
+		svg.selectAll('rect')
+			.data(list_except)
+			.enter().append('rect')
+			.attr('transform', translate)
+			.attr('width', z)
+			.attr('height', z)
+			.style('fill', 'black')
+			.on('click', mouseover);
+			
+		svg.selectAll('rect')
+			.data(shakel)
+			.enter().append('rect')
+			.attr('transform', translate)
+			.attr('width', z)
+			.attr('height', z)
+			.style('fill', 'green')
+			.on('click', mouseover);
+	}
 
 	function translate(d) {
 		return 'translate(' + (d % x) * z + ',' + Math.floor(d / x) * z + ')';
@@ -40,6 +64,7 @@ if (localStorage.list!=undefined) {
 		var nexist = (shakel.indexOf(d)==-1)
 		if (nexist) {
 			shakel.push(d)
+			saveList()
 		}
 		return nexist
 	}
@@ -52,7 +77,6 @@ if (localStorage.list!=undefined) {
 	function saveList() {
 		shakel.sort()
 		localStorage.shakel = JSON.stringify(shakel)
-		// console.log(JSON.parse(localStorage.shakel))
 	}
 
 } else {
