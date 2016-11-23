@@ -30,6 +30,9 @@ if (localStorage.list!=undefined) {
 		// the value 'd' is also d3.select(this).datum()
 		if (addToList(d)) {
 			d3.select(this).style('fill', 'green')
+		} else {
+			remFromList(d)
+			d3.select(this).style('fill', 'black')
 		}
 	}
 
@@ -39,6 +42,11 @@ if (localStorage.list!=undefined) {
 			shakel.push(d)
 		}
 		return nexist
+	}
+	
+	function remFromList(d) {
+		var index = shakel.indexOf(d);
+		shakel.splice(index, 1);
 	}
 
 	function saveList() {
