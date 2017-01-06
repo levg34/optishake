@@ -1,2 +1,2 @@
 # optishake
-ne dites pas bonjour deux fois, n'oubliez personne !
+## Do not say hello twice, do not forget anybody!
