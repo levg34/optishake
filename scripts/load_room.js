@@ -4,7 +4,8 @@ var w = 960,
 	x = w / z,
 	y = h / z,
 	list = [],
-	shakel = [];
+	shakel = [],
+	selfdata;
 
 if (localStorage.list!=undefined) {
 	list = JSON.parse(localStorage.list)
@@ -28,6 +29,14 @@ if (localStorage.list!=undefined) {
 			.filter(function(d, i) { return shakel.indexOf(d3.select(this).datum())>-1 })
 			.style('fill', 'green');
 	}
+	
+	if (localStorage.selfdata!=undefined) {
+		selfdata = JSON.parse(localStorage.selfdata)
+		d3.selectAll("rect")
+			.filter(function(d, i) { return d3.select(this).datum()==selfdata })
+			.style('fill', 'red');
+	}
+
 
 	function translate(d) {
 		return 'translate(' + (d % x) * z + ',' + Math.floor(d / x) * z + ')';
@@ -35,11 +44,13 @@ if (localStorage.list!=undefined) {
 
 	function mouseover(d) {
 		// the value 'd' is also d3.select(this).datum()
-		if (addToList(d)) {
-			d3.select(this).style('fill', 'green')
-		} else {
-			remFromList(d)
-			d3.select(this).style('fill', 'black')
+		if (!selfdata||!(selfdata==d)) {
+			if (addToList(d)) {
+				d3.select(this).style('fill', 'green')
+			} else {
+				remFromList(d)
+				d3.select(this).style('fill', 'black')
+			}
 		}
 	}
 

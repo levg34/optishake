@@ -4,6 +4,9 @@ var w = 960,
 	x = w / z,
 	y = h / z,
 	list = [];
+	
+var selfp = false
+var selfdata
 
 var svg = d3.select('body').append('svg')
 	.attr('width', w)
@@ -27,8 +30,15 @@ function mouseover(d) {
 	if (addToList(d)) {
 		d3.select(this).style('fill', 'black')
 	} else {
-		remFromList(d)
-		d3.select(this).style('fill', 'gray')
+		if (selfp) {
+			d3.select(this).style('fill', 'red')
+			selfdata = d
+			selfp = false
+			document.getElementById('self').setAttribute('hidden','')
+		} else {
+			remFromList(d)
+			d3.select(this).style('fill', 'gray')
+		}
 	}
 }
 
@@ -43,10 +53,14 @@ function addToList(d) {
 function remFromList(d) {
 	var index = list.indexOf(d);
 	list.splice(index, 1);
-	saveList()
 }
 
 function saveList() {
 	list.sort()
 	localStorage.list = JSON.stringify(list)
+	localStorage.selfdata = selfdata
+}
+
+function placeSelf() {
+	selfp = true
 }
