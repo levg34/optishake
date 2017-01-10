@@ -53,14 +53,13 @@ function deleteRoom() {
 }
 
 function loadData() {
-
 	loadJSON('/data/room.json', function(response) {
 		list = JSON.parse(response)
-		localStorage.list = list
+		localStorage.list = response
 	})
 	loadJSON('/data/data.json', function(response) {
 		selfdata = JSON.parse(response)
-		localStorage.selfdata = selfdata
+		localStorage.selfdata = response
 	})
 }
 
