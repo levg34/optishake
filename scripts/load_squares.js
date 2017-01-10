@@ -4,8 +4,7 @@ var w = 960,
 	x = w / z,
 	y = h / z,
 	list = [];
-	
-var selfp = false
+
 var selfdata
 
 var svg = d3.select('body').append('svg')
@@ -28,17 +27,22 @@ function translate(d) {
 function mouseover(d) {
 	// the value 'd' is also d3.select(this).datum()
 	if (addToList(d)) {
-		d3.select(this).style('fill', 'black')
-	} else {
-		if (selfp) {
+		if (selectedName=='me') {
 			d3.select(this).style('fill', 'red')
 			selfdata = d
-			selfp = false
-			document.getElementById('self').setAttribute('hidden','')
 		} else {
-			remFromList(d)
-			d3.select(this).style('fill', 'gray')
+			d3.select(this).style('fill', 'black')
+			if (selectedName!='unnamed') {
+				names[namesOption.value].index = d
+			}
 		}
+		if (namesOption.value!=0) {
+			namesOption.remove(namesOption.value)
+			changeName()
+		}
+	} else {
+		remFromList(d)
+		d3.select(this).style('fill', 'gray')
 	}
 }
 
@@ -60,8 +64,4 @@ function saveList() {
 	localStorage.list = JSON.stringify(list)
 	localStorage.selfdata = selfdata
 	localStorage.names = names
-}
-
-function placeSelf() {
-	selfp = true
 }
