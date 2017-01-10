@@ -41,7 +41,12 @@ function mouseover(d) {
 			}
 		}
 		if (namesOption.value!=0) {
-			namesOption.remove(namesOption.value)
+			for (var i=0; i<namesOption.length; ++i){
+				if (namesOption.options[i].value == namesOption.value) {
+					namesOption.remove(i)
+				}
+			}
+			namesOption.selectedIndex = 0
 			changeName()
 		}
 	} else {
@@ -70,18 +75,6 @@ function saveList() {
 	localStorage.namesData = JSON.stringify(namesData)
 }
 
-function loadJSON(file,callback) {
-	var xobj = new XMLHttpRequest()
-	xobj.overrideMimeType('application/json')
-	xobj.open('GET', file, true)
-	xobj.onreadystatechange = function () {
-		if (xobj.readyState == 4 && xobj.status == "200") {
-			callback(xobj.responseText)
-		}
-	}
-	xobj.send(null);
-}
-
 /*function loadNames() {
  loadJSON('./data/names.json', function(response) {
  names = JSON.parse(response)
@@ -91,7 +84,7 @@ function loadJSON(file,callback) {
 
 function loadNames() {
 	namesOption = document.getElementById('names')
-	loadJSON('https://levg34.github.io/optishake/data/names.json', function(response) {
+	loadJSON('/data/names.json', function(response) {
 		names = JSON.parse(response)
 		names.sort()
 		names.reverse()
