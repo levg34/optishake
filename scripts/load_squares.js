@@ -26,6 +26,9 @@ function mouseover(d) {
 	// the value 'd' is also d3.select(this).datum()
 	if (addToList(d)) {
 		d3.select(this).style('fill', 'black')
+	} else {
+		remFromList(d)
+		d3.select(this).style('fill', 'gray')
 	}
 }
 
@@ -35,6 +38,12 @@ function addToList(d) {
 		list.push(d)
 	}
 	return nexist
+}
+
+function remFromList(d) {
+	var index = list.indexOf(d);
+	list.splice(index, 1);
+	saveList()
 }
 
 function saveList() {
