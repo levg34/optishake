@@ -75,9 +75,11 @@ if (localStorage.list) {
 	
 	function clearRoom() {
 		shakel = []
-		selfdata = 'undefined'
 		delete localStorage.shakel
-		delete localStorage.selfdata
+	}
+
+	function deleteList() {
+		delete localStorage.list
 	}
 
 } else {

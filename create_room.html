@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="scripts/script.js"></script>
   </head>
-  <body onload="loadNames()">
+  <body>
 	<script src="scripts/load_squares.js"></script><br>
-	<span id="self"><a href="#" onclick="placeSelf()">Place self</a> / </span><a href="index.html" onclick="saveList()">Save room</a>
+  <select id="names" onchange="changeName()">
+    <!--<option value="test">test</option>-->
+  </select> - <a href="index.html" onclick="saveList()">Save room</a>
+  <script>loadNames()</script>
   </body>
 </html>

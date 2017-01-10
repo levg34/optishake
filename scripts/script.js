@@ -1,31 +1,6 @@
 var names
-
-function deleteList() {
-	delete localStorage.list
-}
-
-function arr_diff (a1, a2) {
-
-	var a = [], diff = [];
-
-	for (var i = 0; i < a1.length; i++) {
-		a[a1[i]] = true;
-	}
-
-	for (var i = 0; i < a2.length; i++) {
-		if (a[a2[i]]) {
-			delete a[a2[i]];
-		} else {
-			a[a2[i]] = true;
-		}
-	}
-
-	for (var k in a) {
-		diff.push(k);
-	}
-
-	return diff;
-}
+var selectedName = 'unnamed'
+var namesOption
 
 function loadJSON(file,callback) {	 
 	var xobj = new XMLHttpRequest()
@@ -48,8 +23,28 @@ function loadJSON(file,callback) {
 }*/
 
 function loadNames() {
+	namesOption = document.getElementById('names')
 	loadJSON('https://levg34.github.io/optishake/data/names.json', function(response) {
 		names = JSON.parse(response)
+		names.reverse()
 		names.push({name:'me'})
+		names.push({name:'unnamed'})
+		names.reverse()
+		for (var i in names) {
+			var name = names[i]
+			// add name to view
+			addNameOption(i,name.name)
+		}
 	})
+}
+
+function changeName() {
+	selectedName = names[namesOption.value].name
+}
+
+function addNameOption(i,name) {
+	var option = document.createElement('option')
+	option.value = i
+	option.text = name
+	namesOption.add(option)
 }
