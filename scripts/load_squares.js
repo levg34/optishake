@@ -59,6 +59,7 @@ function saveList() {
 	list.sort()
 	localStorage.list = JSON.stringify(list)
 	localStorage.selfdata = selfdata
+	localStorage.names = names
 }
 
 function placeSelf() {
