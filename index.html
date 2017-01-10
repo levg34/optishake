@@ -11,10 +11,12 @@
 	<!-- content -->
 	<h1>Room:</h1>
   <span id="withdata" hidden>
-	  <a href="" onclick="clearRoom()">Clear room</a> / <a href="" onclick="deleteRoom()">Delete room</a>
+    <h2>Shakes remaining:</h2>
+    <p id="listshakes"></p>
+	  <h3><a href="" onclick="clearRoom()">Clear room</a> / <a href="" onclick="deleteRoom()">Delete room</a></h3>
   </span>
   <span id="nodata">
-    <p>No room has been created: <a href="create_room.html">create room</a> or <a href="" onclick="loadData()">load data from server</a></p>
+    <h2>No room has been created: <a href="create_room.html">create room</a> or <a href="" onclick="loadData()">load data from server</a></h2>
   </span>
   <script src="script/load_room.js"></script>
   </body>

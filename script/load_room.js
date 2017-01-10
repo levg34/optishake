@@ -58,6 +58,10 @@ function loadData() {
 		localStorage.list = response
 	})
 	loadJSON('/data/data.json', function(response) {
+		namesData = JSON.parse(response)
+		localStorage.namesData = response
+	})
+	loadJSON('/data/self.json', function(response) {
 		selfdata = JSON.parse(response)
 		localStorage.selfdata = response
 	})
@@ -96,8 +100,20 @@ if (localStorage.list) {
 	}
 
 	if (localStorage.namesData) {
+		var res = ''
 		namesData = JSON.parse(localStorage.namesData)
 		// TODO: implement
 		console.log(namesData)
+		for (var i in list) {
+			var data = list[i]
+			if (!selfdata || data!=selfdata) {
+				if (namesData[data]) {
+					res += namesData[data] + '<br>'
+				} else {
+					res += 'Unknown '+data + '<br>'
+				}
+			}
+		}
+		document.querySelector('#listshakes').innerHTML = res
 	}
 }
