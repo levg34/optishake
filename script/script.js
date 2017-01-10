@@ -1,4 +1,5 @@
-var baseUrl = 'https://levg34.github.io/optishake'
+var baseUrl = 'https://levg34.github.io/optishake' // for local tests
+// var baseUrl = '.' // on server
 
 function loadJSON(file,callback) {
 	var xobj = new XMLHttpRequest()
