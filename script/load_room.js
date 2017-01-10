@@ -8,7 +8,65 @@ var w = 960,
 	selfdata,
 	namesData;
 
+function translate(d) {
+	return 'translate(' + (d % x) * z + ',' + Math.floor(d / x) * z + ')';
+}
+
+function mouseover(d) {
+	// the value 'd' is also d3.select(this).datum()
+	if (!selfdata||!(selfdata==d)) {
+		if (addToList(d)) {
+			d3.select(this).style('fill', 'green')
+		} else {
+			remFromList(d)
+			d3.select(this).style('fill', 'black')
+		}
+	}
+}
+
+function addToList(d) {
+	var nexist = (shakel.indexOf(d)==-1)
+	if (nexist) {
+		shakel.push(d)
+		saveList()
+	}
+	return nexist
+}
+
+function remFromList(d) {
+	var index = shakel.indexOf(d);
+	shakel.splice(index, 1);
+	saveList()
+}
+
+function saveList() {
+	localStorage.shakel = JSON.stringify(shakel)
+}
+
+function clearRoom() {
+	shakel = []
+	delete localStorage.shakel
+}
+
+function deleteRoom() {
+	localStorage.clear()
+}
+
+function loadData() {
+
+	loadJSON('/data/room.json', function(response) {
+		list = JSON.parse(response)
+		localStorage.list = list
+	})
+	loadJSON('/data/data.json', function(response) {
+		selfdata = JSON.parse(response)
+		localStorage.selfdata = selfdata
+	})
+}
+
 if (localStorage.list) {
+	document.getElementById('nodata').setAttribute('hidden','')
+	document.getElementById('withdata').removeAttribute('hidden')
 	list = JSON.parse(localStorage.list)
 
 	var svg = d3.select('h1').append('svg')
@@ -43,51 +101,4 @@ if (localStorage.list) {
 		// TODO: implement
 		console.log(namesData)
 	}
-
-	function translate(d) {
-		return 'translate(' + (d % x) * z + ',' + Math.floor(d / x) * z + ')';
-	}
-
-	function mouseover(d) {
-		// the value 'd' is also d3.select(this).datum()
-		if (!selfdata||!(selfdata==d)) {
-			if (addToList(d)) {
-				d3.select(this).style('fill', 'green')
-			} else {
-				remFromList(d)
-				d3.select(this).style('fill', 'black')
-			}
-		}
-	}
-
-	function addToList(d) {
-		var nexist = (shakel.indexOf(d)==-1)
-		if (nexist) {
-			shakel.push(d)
-			saveList()
-		}
-		return nexist
-	}
-	
-	function remFromList(d) {
-		var index = shakel.indexOf(d);
-		shakel.splice(index, 1);
-		saveList()
-	}
-
-	function saveList() {
-		localStorage.shakel = JSON.stringify(shakel)
-	}
-	
-	function clearRoom() {
-		shakel = []
-		delete localStorage.shakel
-	}
-
-	function deleteList() {
-		delete localStorage.list
-	}
-
-} else {
-	var p = d3.select('h1').append('p').text('No room has been created: ').append('a').attr('href', 'create_room.html').text('create room')
 }
