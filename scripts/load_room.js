@@ -7,7 +7,7 @@ var w = 960,
 	shakel = [],
 	selfdata;
 
-if (localStorage.list!=undefined) {
+if (localStorage.list) {
 	list = JSON.parse(localStorage.list)
 
 	var svg = d3.select('h1').append('svg')
@@ -23,14 +23,14 @@ if (localStorage.list!=undefined) {
 		.style('fill', 'black')
 		.on('click', mouseover);
 		
-	if (localStorage.shakel!=undefined) {
+	if (localStorage.shakel) {
 		shakel = JSON.parse(localStorage.shakel)
 		d3.selectAll("rect")
 			.filter(function(d, i) { return shakel.indexOf(d3.select(this).datum())>-1 })
 			.style('fill', 'green');
 	}
 	
-	if (localStorage.selfdata!=undefined) {
+	if (localStorage.selfdata && localStorage.selfdata!='undefined') {
 		selfdata = JSON.parse(localStorage.selfdata)
 		d3.selectAll("rect")
 			.filter(function(d, i) { return d3.select(this).datum()==selfdata })
@@ -75,7 +75,9 @@ if (localStorage.list!=undefined) {
 	
 	function clearRoom() {
 		shakel = []
+		selfdata = 'undefined'
 		delete localStorage.shakel
+		delete localStorage.selfdata
 	}
 
 } else {
