@@ -5,7 +5,8 @@ var w = 960,
 	y = h / z,
 	list = [],
 	shakel = [],
-	selfdata;
+	selfdata,
+	namesData;
 
 if (localStorage.list) {
 	list = JSON.parse(localStorage.list)
@@ -37,6 +38,11 @@ if (localStorage.list) {
 			.style('fill', 'red');
 	}
 
+	if (localStorage.namesData) {
+		namesData = JSON.parse(localStorage.namesData)
+		// TODO: implement
+		console.log(namesData)
+	}
 
 	function translate(d) {
 		return 'translate(' + (d % x) * z + ',' + Math.floor(d / x) * z + ')';
