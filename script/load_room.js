@@ -21,6 +21,7 @@ function mouseover(d) {
 			remFromList(d)
 			d3.select(this).style('fill', 'black')
 		}
+		refreshListView()
 	}
 }
 
@@ -67,6 +68,24 @@ function loadData() {
 	})
 }
 
+function refreshListView() {
+	if (localStorage.namesData) {
+		var res = ''
+		namesData = JSON.parse(localStorage.namesData)
+		for (var i in list) {
+			var data = list[i]
+			if ((!selfdata || data!=selfdata)&&shakel.indexOf(data)==-1) {
+				if (namesData[data]) {
+					res += namesData[data] + '<br>'
+				} else {
+					res += 'Unknown '+data + '<br>'
+				}
+			}
+		}
+		document.querySelector('#listshakes').innerHTML = res
+	}
+}
+
 if (localStorage.list) {
 	document.getElementById('nodata').setAttribute('hidden','')
 	document.getElementById('withdata').removeAttribute('hidden')
@@ -99,21 +118,5 @@ if (localStorage.list) {
 			.style('fill', 'red');
 	}
 
-	if (localStorage.namesData) {
-		var res = ''
-		namesData = JSON.parse(localStorage.namesData)
-		// TODO: implement
-		console.log(namesData)
-		for (var i in list) {
-			var data = list[i]
-			if ((!selfdata || data!=selfdata)&&shakel.indexOf(data)>-1) {
-				if (namesData[data]) {
-					res += namesData[data] + '<br>'
-				} else {
-					res += 'Unknown '+data + '<br>'
-				}
-			}
-		}
-		document.querySelector('#listshakes').innerHTML = res
-	}
+	refreshListView()
 }
