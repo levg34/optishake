@@ -106,7 +106,7 @@ if (localStorage.list) {
 		console.log(namesData)
 		for (var i in list) {
 			var data = list[i]
-			if (!selfdata || data!=selfdata) {
+			if ((!selfdata || data!=selfdata)&&shakel.indexOf(data)>-1) {
 				if (namesData[data]) {
 					res += namesData[data] + '<br>'
 				} else {
